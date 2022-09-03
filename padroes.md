@@ -1,11 +1,11 @@
 # Padrões
 
-- nomeclaturas todas em ingles
-- funcoes que podem ser reaproveitadas devem estar em useful_functions
-- um formulario por pagina
-- navbar vem depois do h1
-- flash message vem antes do h1
-- em catch nunca exibir apenas o retorno th, exibir uma mensagem do contexto
-- Não use echo. Apenas quando for exibir na tela com funcão php
+- Nomeclatura em ingles
+- Funções que podem ser reaproveitadas devem estar em useful_functions
+- Apenas um formulario por página
+- Navigation bar vem depois do h1
+- Flash message vem antes do h1
+- Em catch nunca exibir apenas o retorno th, exibir uma mensagem do contexto
+- Usar echo apenas um funções de renderização de texto
 - Aspas duplas em tudo
-- die ao inves de exit
+- die ao invés de exit

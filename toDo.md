@@ -1,3 +1,4 @@
 # Coisas para fazer
 
-- Criar ação de login
+- Revisar estrutura do banco de dados
+- Planejar cadastr, edição, visualização e exclução de post

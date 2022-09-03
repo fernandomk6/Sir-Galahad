@@ -2,9 +2,9 @@
   session_start();
   require_once("./useful_functions.php");
 
-  if (!verify_data_session("user") || isset($_GET["logout"])) {
-    redirect("index", true);
-  }
+  is_logged();
+
+  $user = get_data_session("user");
 
 ?>
 <!DOCTYPE html>
@@ -14,13 +14,14 @@
     <?php show_flash_message() ?> 
     
     <h1>Post</h1>
+    <h2><?= $user["first_name"] ?></h2>
     <?php require_once("./templates/navigation_bar.html"); ?>
 
     <div>
       <ul>
         <li><a href="">Criar post</a></li>
         <li><a href="">Ver meus posts</a></li>
-        <li><a href="">Editar minha conta</a></li>
+        <li><a href="./account.php">Editar minha conta</a></li>
         <li><a href="?logout=true">Deslogar</a></li>
       </ul>
       <form action="" method="GET">
@@ -29,8 +30,5 @@
         <button>Pesquisar</button>
       </form>
     </div>
-    
-    <?php print_r(get_data_session("user")); ?>
-
   </body>
 </html>

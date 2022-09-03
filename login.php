@@ -6,20 +6,20 @@
   
   if (verify_action_post("login")) {
     
-    list(
-      "email" => $email, 
-      "password" => $password
-      ) = $_POST;
+  list(
+    "email" => $email, 
+    "password" => $password
+    ) = $_POST;
+    
+    try {
+      $password = md5($password);
       
-      try {
-        $password = md5($password);
-        
-        $sql = "SELECT * FROM account WHERE email = '$email' AND password = '$password';";
-        
-        $user = $conn->query($sql)->fetch_assoc();
-        
-        if ($user) {
-        
+      $sql = "SELECT * FROM account WHERE email = '$email' AND password = '$password';";
+      
+      $user = $conn->query($sql)->fetch_assoc();
+      
+      if ($user) {
+      
         set_data_session("user", $user);
 
         redirect("post");

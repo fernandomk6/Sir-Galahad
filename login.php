@@ -1,4 +1,6 @@
 <?php 
+  session_start();
+
   require_once("./connection.php");
   require_once("./useful_functions.php");
   
@@ -20,14 +22,14 @@
         
         set_data_session("user", $user);
 
-        header("Location: ./post.php"); die();
+        redirect("post");
 
       } else {
-        set_flash_message("Usuário ou senha inválidos");
+        set_data_session("flash_message", "Usuário ou senha inválidos");
       }
 
     } catch (\Throwable $th) {
-      set_flash_message("Erro ao tentar verificar login: $th");
+      set_data_session("flash_message", "Erro ao tentar verificar login: $th");
     }
   }
 ?>
@@ -36,10 +38,9 @@
 <html lang="pt-br">
   <?php require_once("./templates/head.html") ?>
 <body>
-  
   <?php show_flash_message() ?>
 
-  <h1>Login Page</h1>
+  <h1>Login</h1>
   <?php require_once("./templates/navigation_bar.html") ?>
 
   <form action="" method="POST">

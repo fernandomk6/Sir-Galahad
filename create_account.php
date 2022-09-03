@@ -1,4 +1,6 @@
 <?php 
+  session_start();
+
   require_once("./connection.php");
   require_once("./useful_functions.php");
 
@@ -14,7 +16,7 @@
     if (validate_empty_fields([ $first_name, $last_name ])) {
 
       if ($password !== $confirm_password) {
-        set_flash_message("Senhas diferentes");
+        set_data_session("flash_message", "Senhas diferentes");
       } else {
         try {
           $password = md5($password);
@@ -25,13 +27,13 @@
     
           $conn->query($sql);
     
-          set_flash_message("Conta criada com sucesso");
+          set_data_session("flash_message", "Conta criada com sucesso");
         } catch (\Throwable $th) {
-          set_flash_message("Erro ao cadastrar conta: $th");
+          set_data_session("flash_message", "Erro ao cadastrar conta: $th");
         }
       }
     } else {
-      set_flash_message("Nome ou ultimo nome em branco");
+      set_data_session("flash_message", "Nome ou último nome em branco");
     }
   }
 ?>

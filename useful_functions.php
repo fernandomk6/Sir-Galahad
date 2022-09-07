@@ -82,3 +82,54 @@ function get_categories($conn) {
   $sql = "SELECT * FROM category;";
   return $conn->query($sql)->fetch_all(MYSQLI_ASSOC);
 }
+
+function get_posts($conn) {
+  $posts_formated = [];
+
+  $sql = "SELECT * FROM post WHERE deleted_at IS NULL ORDER BY id DESC;";
+  $posts = $conn->query($sql)->fetch_all(MYSQLI_ASSOC);
+
+  $sql = "SELECT * FROM post_for_category";
+  $posts_for_category = $conn->query($sql)->fetch_all(MYSQLI_ASSOC);
+
+  $sql = "SELECT * FROM category";
+  $categories = $conn->query($sql)->fetch_all(MYSQLI_ASSOC);
+
+  $sql = "SELECT * FROM account";
+  $accounts = $conn->query($sql)->fetch_all(MYSQLI_ASSOC);
+
+  foreach ($posts as $post) {
+
+    foreach ($posts_for_category as $post_for_category) {
+      if ($post_for_category["post_id"] === $post["id"]) {
+
+        foreach ($categories as $category) {
+          if ($post_for_category["category_id"] === $category["id"]) {
+            list(
+              "id" => $id,
+              "name" => $name
+            ) = $category;
+
+            $post["categories"][] = ["id" => $id, "name" => $name];
+          }
+        }
+      }
+    }
+
+    foreach ($accounts as $account) {
+      if ($account["id"] === $post["account_id"]) {
+        $post["autor"] = $account["first_name"] . " " . $account["last_name"];
+      }
+    }
+    
+    $posts_formated[] = $post;
+  }
+
+  return $posts_formated;
+}
+
+function print_data($data) {
+  echo("<pre>");
+  print_r($data);
+  die();
+}

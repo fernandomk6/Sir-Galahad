@@ -63,6 +63,14 @@
     }
   }
 
+  if (isset($_GET["delete_account"]) && !empty($_GET["delete_account"])) {
+    $user_id = $user["id"];
+    $sql = "DELETE FROM account where id = $user_id;";
+    $conn->query($sql);
+
+    redirect("index", true);
+  }
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -76,6 +84,7 @@
 
   <ul>
     <li><a href="">Criar post</a></li>
+    <li><a href="?delete_account=true">Deletar conta</a></li>
     <li><a href="">Ver meus posts</a></li>
     <li><a href="?logout=true">Deslogar</a></li>
   </ul>

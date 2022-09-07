@@ -10,16 +10,6 @@
   $categories = get_categories($conn);
 
   if (verify_action_post("create_post")) {
-    
-    // [action] => create_post
-    // [account_id] => 37
-    // [title] => asd
-    // [body] => asd
-    // [categories] => Array
-    //     (
-    //         [0] => 1
-    //         [1] => 2
-    //     )
 
     list(
       "account_id" => $account_id,

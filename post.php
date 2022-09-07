@@ -26,11 +26,6 @@
         <li><a href="./account.php">Editar minha conta</a></li>
         <li><a href="?logout=true">Deslogar</a></li>
       </ul>
-      <form action="" method="GET">
-        <label for="search">Pesquisar</label>
-        <input type="text" name="search" id="search" placeholder="Pesquise por seus posts">
-        <button>Pesquisar</button>
-      </form>
     </div>
 
     <div>
@@ -57,6 +52,15 @@
               <?php endforeach; ?>
             </ul>
           </div>
+          <?php if (isset($user) && !empty($user)): ?>
+            <div>
+              <span>Ações</span>
+              <ul>
+                <li><a href="">Comentar</a></li>
+                <li><a href="">Curtir</a></li>
+              </ul>
+            </div>
+          <?php endif; ?>
           <hr>
         </div>
       <?php endforeach; ?>

@@ -47,7 +47,6 @@ function clear_data_session($index) {
 }
 
 function redirect($page, $clear_sessions = false) {
-
   if ($clear_sessions) {
     session_unset();
     session_destroy();
@@ -77,4 +76,9 @@ function get_formated_date($timestamp) {
   }
 
   return $formated_date;
+}
+
+function get_categories($conn) {
+  $sql = "SELECT * FROM category;";
+  return $conn->query($sql)->fetch_all(MYSQLI_ASSOC);
 }

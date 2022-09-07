@@ -14,12 +14,12 @@
     <?php show_flash_message() ?> 
     
     <h1>Post</h1>
-    <h2><?= $user["first_name"] ?></h2>
+    <h2>Bem-vindo <?= $user["first_name"] . " " . $user["last_name"] ?></h2>
     <?php require_once("./templates/navigation_bar.html"); ?>
 
     <div>
       <ul>
-        <li><a href="">Criar post</a></li>
+        <li><a href="./create_post.php">Criar post</a></li>
         <li><a href="">Ver meus posts</a></li>
         <li><a href="./account.php">Editar minha conta</a></li>
         <li><a href="?logout=true">Deslogar</a></li>

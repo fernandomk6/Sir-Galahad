@@ -1,3 +1,9 @@
 # Coisas para fazer
 
-- crud post
+- delete account
+- insert post
+- select post
+- update post
+- delete post
+
+- post actions

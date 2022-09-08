@@ -71,65 +71,71 @@
     </div>
 
     <div>
-      <?php foreach($posts as $post): ?>
-        <div>
-          <h3><?= $post["title"] ?></h3>
+      <?php if($posts): ?>
+        <?php foreach($posts as $post): ?>
           <div>
-            <p><?= $post["body"] ?></p>
-          </div>
-          <div>
-            <span>Autor: <?= $post["autor"] ?></span>
-          </div>
-          <div>
-            <span>Cadastrado em: <?= get_formated_date($post["created_at"]) ?></span>
-          </div>
-          <div>
-            <span>Ultima alteração em: <?= get_formated_date($post["updated_at"]) ?></span>
-          </div>
-          <div>
-            <span>Número de curtidas: <?= $post["enjoyed_number"] ?></span>
-          </div>
-          <div>
-            <span>Número de comentários: <?= $post["comment_number"] ?></span>
-          </div>
-          <div>
-            <span>Categorias</span>
-            <ul>
-              <?php foreach($post["categories"] as $category): ?>
-                <li><?= $category["name"] ?></li>
-              <?php endforeach; ?>
-            </ul>
-          </div>
-          <?php if (isset($user) && !empty($user)): ?>
+            <h3><?= $post["title"] ?></h3>
             <div>
-              <span>Ações</span>
+              <p><?= $post["body"] ?></p>
+            </div>
+            <div>
+              <span>Autor: <?= $post["autor"] ?></span>
+            </div>
+            <div>
+              <span>Cadastrado em: <?= get_formated_date($post["created_at"]) ?></span>
+            </div>
+            <div>
+              <span>Ultima alteração em: <?= get_formated_date($post["updated_at"]) ?></span>
+            </div>
+            <div>
+              <span>Número de curtidas: <?= $post["enjoyed_number"] ?></span>
+            </div>
+            <div>
+              <span>Número de comentários: <?= $post["comment_number"] ?></span>
+            </div>
+            <div>
+              <span>Categorias</span>
               <ul>
-                <li>
-                  <form action="" method="POST">
-                    <input type="hidden" name="action" value="create_comment">
-                    <input type="hidden" name="account_id" value="<?= $user["id"]?>">
-                    <input type="hidden" name="post_id" value="<?= $post["id"] ?>">
-                    <label for="body">Comenário</label>
-                    <div>
-                      <textarea 
-                        name="body" 
-                        id="body" 
-                        placeholder="Qual a sua opnião sobre isso?" 
-                        cols="30" 
-                        rows="3"
-                      ></textarea>
-                    </div>
-                    <button>Comentar</button>
-                  </form>
-                </li>
-                <li><a href="./comment.php?post_id=<?= $post["id"] ?>">Ver todos os comentários</a></li>
-                <li><a href="?enjoyed=true&post_id=<?= $post["id"] ?>">Curtir</a></li>
+                <?php foreach($post["categories"] as $category): ?>
+                  <li><?= $category["name"] ?></li>
+                <?php endforeach; ?>
               </ul>
             </div>
-          <?php endif; ?>
-          <hr>
+            <?php if (isset($user) && !empty($user)): ?>
+              <div>
+                <span>Ações</span>
+                <ul>
+                  <li>
+                    <form action="" method="POST">
+                      <input type="hidden" name="action" value="create_comment">
+                      <input type="hidden" name="account_id" value="<?= $user["id"]?>">
+                      <input type="hidden" name="post_id" value="<?= $post["id"] ?>">
+                      <label for="body">Comenário</label>
+                      <div>
+                        <textarea 
+                          name="body" 
+                          id="body" 
+                          placeholder="Qual a sua opnião sobre isso?" 
+                          cols="30" 
+                          rows="3"
+                        ></textarea>
+                      </div>
+                      <button>Comentar</button>
+                    </form>
+                  </li>
+                  <li><a href="./comment.php?post_id=<?= $post["id"] ?>">Ver todos os comentários</a></li>
+                  <li><a href="?enjoyed=true&post_id=<?= $post["id"] ?>">Curtir</a></li>
+                </ul>
+              </div>
+            <?php endif; ?>
+            <hr>
+          </div>
+        <?php endforeach; ?>
+      <?php else: ?>
+        <div>
+          <span>Nenhum post</span>
         </div>
-      <?php endforeach; ?>
+      <?php endif; ?>
     </div>
   </body>
 </html>

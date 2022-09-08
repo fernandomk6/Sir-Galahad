@@ -162,3 +162,117 @@ function get_comments($post_id, $conn) {
 
   return $comments_formated;
 }
+
+function get_own_posts($account_id, $conn) {
+  $posts_formated = [];
+
+  $sql = "SELECT * FROM post WHERE deleted_at IS NULL AND account_id = $account_id ORDER BY id DESC;";
+  $posts = $conn->query($sql)->fetch_all(MYSQLI_ASSOC);
+
+  $sql = "SELECT * FROM post_for_category";
+  $posts_for_category = $conn->query($sql)->fetch_all(MYSQLI_ASSOC);
+
+  $sql = "SELECT * FROM category";
+  $categories = $conn->query($sql)->fetch_all(MYSQLI_ASSOC);
+
+  $sql = "SELECT * FROM account";
+  $accounts = $conn->query($sql)->fetch_all(MYSQLI_ASSOC);
+
+  foreach ($posts as $post) {
+    $post_id = $post["id"];
+
+    foreach ($posts_for_category as $post_for_category) {
+      if ($post_for_category["post_id"] === $post["id"]) {
+
+        foreach ($categories as $category) {
+          if ($post_for_category["category_id"] === $category["id"]) {
+            list(
+              "id" => $id,
+              "name" => $name
+            ) = $category;
+
+            $post["categories"][] = ["id" => $id, "name" => $name];
+          }
+        }
+      }
+    }
+
+    foreach ($accounts as $account) {
+      if ($account["id"] === $post["account_id"]) {
+        $post["autor"] = $account["first_name"] . " " . $account["last_name"];
+      }
+    }
+
+    $sql = "SELECT COUNT(*) AS comment_number FROM comment WHERE post_id = $post_id";
+    $comment_number = $conn->query($sql)->fetch_assoc();
+
+    $post["comment_number"] = $comment_number["comment_number"];
+
+    
+    $sql = "SELECT COUNT(*) AS enjoyed_number FROM enjoy WHERE post_id = $post_id";
+    $enjoyed_number = $conn->query($sql)->fetch_assoc();
+
+    $post["enjoyed_number"] = $enjoyed_number["enjoyed_number"];
+    
+    $posts_formated[] = $post;
+  }
+
+  return $posts_formated;
+}
+
+function get_post($post_id, $conn) {
+  $posts_formated = [];
+
+  $sql = "SELECT * FROM post WHERE deleted_at IS NULL AND id = $post_id ORDER BY id DESC;";
+  $posts = $conn->query($sql)->fetch_all(MYSQLI_ASSOC);
+
+  $sql = "SELECT * FROM post_for_category";
+  $posts_for_category = $conn->query($sql)->fetch_all(MYSQLI_ASSOC);
+
+  $sql = "SELECT * FROM category";
+  $categories = $conn->query($sql)->fetch_all(MYSQLI_ASSOC);
+
+  $sql = "SELECT * FROM account";
+  $accounts = $conn->query($sql)->fetch_all(MYSQLI_ASSOC);
+
+  foreach ($posts as $post) {
+    $post_id = $post["id"];
+
+    foreach ($posts_for_category as $post_for_category) {
+      if ($post_for_category["post_id"] === $post["id"]) {
+
+        foreach ($categories as $category) {
+          if ($post_for_category["category_id"] === $category["id"]) {
+            list(
+              "id" => $id,
+              "name" => $name
+            ) = $category;
+
+            $post["categories"][] = ["id" => $id, "name" => $name];
+          }
+        }
+      }
+    }
+
+    foreach ($accounts as $account) {
+      if ($account["id"] === $post["account_id"]) {
+        $post["autor"] = $account["first_name"] . " " . $account["last_name"];
+      }
+    }
+
+    $sql = "SELECT COUNT(*) AS comment_number FROM comment WHERE post_id = $post_id";
+    $comment_number = $conn->query($sql)->fetch_assoc();
+
+    $post["comment_number"] = $comment_number["comment_number"];
+
+    
+    $sql = "SELECT COUNT(*) AS enjoyed_number FROM enjoy WHERE post_id = $post_id";
+    $enjoyed_number = $conn->query($sql)->fetch_assoc();
+
+    $post["enjoyed_number"] = $enjoyed_number["enjoyed_number"];
+    
+    $posts_formated[] = $post;
+  }
+
+  return $posts_formated;
+}

@@ -55,7 +55,7 @@
   <?php require_once("./templates/navigation_bar.html"); ?>
 
   <ul>
-    <li><a href="">Ver meus posts</a></li>
+    <li><a href="./my_posts.php">Ver meus posts</a></li>
     <li><a href="./account.php">Editar minha conta</a></li>
     <li><a href="?logout=true">Deslogar</a></li>
   </ul>

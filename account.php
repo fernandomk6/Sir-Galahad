@@ -85,7 +85,7 @@
   <ul>
     <li><a href="">Criar post</a></li>
     <li><a href="?delete_account=true">Deletar conta</a></li>
-    <li><a href="">Ver meus posts</a></li>
+    <li><a href="./my_posts.php">Ver meus posts</a></li>
     <li><a href="?logout=true">Deslogar</a></li>
   </ul>
   

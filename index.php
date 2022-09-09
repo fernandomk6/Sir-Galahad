@@ -43,7 +43,6 @@ if (verify_action_get("search_post")) {
   $posts = $result_search;
 }
 
-
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -56,41 +55,47 @@ if (verify_action_get("search_post")) {
     <?php require_once("./templates/navigation_bar.html"); ?>
     <?php require_once("./templates/search_post_bar.php"); ?>
   <div>
-    <?php foreach($posts as $post): ?>
-      <div>
-        <h3><?= $post["title"] ?></h3>
+    <?php if ($posts): ?>
+      <?php foreach($posts as $post): ?>
         <div>
-          <p><?= $post["body"] ?></p>
-        </div>
-        <div>
-          <span>Autor: <?= $post["autor"] ?></span>
-        </div>
-        <div>
-          <span>Cadastrado em: <?= get_formated_date($post["created_at"]) ?></span>
-        </div>
-        <div>
-          <span>Ultima alteração em: <?= get_formated_date($post["updated_at"]) ?></span>
-        </div>
-        <div>
-          <span>Categorias</span>
-          <ul>
-            <?php foreach($post["categories"] as $category): ?>
-              <li><?= $category["name"] ?></li>
-            <?php endforeach; ?>
-          </ul>
-        </div>
-        <?php if (isset($user) && !empty($user)): ?>
+          <h3><?= $post["title"] ?></h3>
           <div>
-            <span>Ações</span>
+            <p><?= $post["body"] ?></p>
+          </div>
+          <div>
+            <span>Autor: <?= $post["autor"] ?></span>
+          </div>
+          <div>
+            <span>Cadastrado em: <?= get_formated_date($post["created_at"]) ?></span>
+          </div>
+          <div>
+            <span>Ultima alteração em: <?= get_formated_date($post["updated_at"]) ?></span>
+          </div>
+          <div>
+            <span>Categorias</span>
             <ul>
-              <li><a href="">Comentar</a></li>
-              <li><a href="">Curtir</a></li>
+              <?php foreach($post["categories"] as $category): ?>
+                <li><?= $category["name"] ?></li>
+              <?php endforeach; ?>
             </ul>
           </div>
-        <?php endif; ?>
-        <hr>
+          <?php if (isset($user) && !empty($user)): ?>
+            <div>
+              <span>Ações</span>
+              <ul>
+                <li><a href="">Comentar</a></li>
+                <li><a href="">Curtir</a></li>
+              </ul>
+            </div>
+          <?php endif; ?>
+          <hr>
+        </div>
+      <?php endforeach; ?>
+    <?php else: ?>
+      <div>
+        <span>Não há nada aqui</span>
       </div>
-    <?php endforeach; ?>
+    <?php endif; ?>
   </div>
 </body>
 </html>

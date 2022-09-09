@@ -8,4 +8,4 @@
 - Em catch nunca exibir apenas o retorno th, exibir uma mensagem do contexto
 - Usar echo apenas um funções de renderização de texto
 - Aspas duplas em tudo
-- die ao invés de exit
+- die ao invés de exit para debugs

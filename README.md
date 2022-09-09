@@ -4,9 +4,10 @@
 pesquisar, cadastrar, comentar e curtir um post. 
 
 O principal objetivo desse projeto é praticar SQL e PHP.
-Nesse projeto foi usado apenas HTML no frontend, sem CSS e JAVASCRIPT
-pois o intuito era trabalhar apenas com a manipulação dos dados e
-fazer as regra de nogocio funcionarem corretamente.
+
+Nesse projeto foi usado apenas HTML no frontend, sem CSS e JAVASCRIPT,
+O intuito era realmente ter um frontend simples, apenas com o necessário
+para poder lidar com as regras de nogócios da aplicação.
 
 ## Linguagens
 

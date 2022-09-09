@@ -59,6 +59,45 @@ if (isset($_GET["delete_post"]) && !empty($_GET["delete_post"])) {
 } 
 
 $own_posts = get_own_posts($user["id"], $conn);
+
+if (verify_action_get("search_post")) {
+
+  list(
+    "title" => $title,
+    "body" => $body,
+    "autor" => $autor
+  ) = $_GET;
+
+
+  
+  $result_search = [];
+
+  foreach ($own_posts as $post) {
+    if (
+      (strpos($post["autor"], $autor) !== false) &&
+      (strpos($post["title"], $title) !== false) &&
+      (strpos($post["body"], $body) !== false)
+    ) {
+
+
+      if (isset($_GET["categories"]) && !empty($_GET["categories"])) {
+        $categories = $_GET["categories"];
+        
+        foreach ($categories as $category) {
+          foreach ($post["categories"] as $post_category) {
+            if (in_array($category, $post_category)) {
+              $result_search[] = $post;
+            }
+          }
+        }
+      } else {
+        $result_search[] = $post;
+      }
+    }
+  }
+
+  $own_posts = $result_search;
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -66,6 +105,7 @@ $own_posts = get_own_posts($user["id"], $conn);
 <body>
   <h1>Meus posts</h1>
   <?php require_once("./templates/navigation_bar.html"); ?>
+  <?php require_once("./templates/search_post_bar.php"); ?>
 
   <div>
     <?php if($own_posts): ?>
@@ -132,7 +172,7 @@ $own_posts = get_own_posts($user["id"], $conn);
       <?php endforeach; ?>
     <?php else: ?>
       <div>
-        <span>Você não postou nada ainda</span>
+        <span>Não há nada aqui amigo</span>
       </div>
     <?php endif; ?>
   </div>

@@ -1,4 +1,4 @@
-# Padrões
+# Pattern
 
 - Nomeclatura em ingles
 - Funções que podem ser reaproveitadas devem estar em useful_functions

@@ -50,6 +50,47 @@
   
   
   $posts = get_posts($conn);
+
+  if (verify_action_get("search_post")) {
+
+    list(
+      "title" => $title,
+      "body" => $body,
+      "autor" => $autor
+    ) = $_GET;
+  
+  
+    
+    $result_search = [];
+  
+    foreach ($posts as $post) {
+      if (
+        (strpos($post["autor"], $autor) !== false) &&
+        (strpos($post["title"], $title) !== false) &&
+        (strpos($post["body"], $body) !== false)
+      ) {
+  
+  
+        if (isset($_GET["categories"]) && !empty($_GET["categories"])) {
+          $categories = $_GET["categories"];
+          
+          foreach ($categories as $category) {
+            foreach ($post["categories"] as $post_category) {
+              if (in_array($category, $post_category)) {
+                $result_search[] = $post;
+              }
+            }
+          }
+        } else {
+          $result_search[] = $post;
+        }
+      }
+    }
+  
+    $posts = $result_search;
+  }
+
+  $categories = get_categories($conn);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -60,6 +101,8 @@
     <h1>Post</h1>
     <h2>Bem-vindo <?= $user["first_name"] . " " . $user["last_name"] ?></h2>
     <?php require_once("./templates/navigation_bar.html"); ?>
+    <?php require_once("./templates/search_post_bar.php"); ?>
+    
 
     <div>
       <ul>

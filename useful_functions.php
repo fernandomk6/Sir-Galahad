@@ -14,6 +14,10 @@ function verify_action_post($action) {
   return (isset($_POST["action"]) && !empty($_POST["action"]) && $_POST["action"] === $action);
 }
 
+function verify_action_get($action) {
+  return (isset($_GET["action"]) && !empty($_GET["action"]) && $_GET["action"] === $action);
+}
+
 function show_flash_message() {
   if (verify_data_session("flash_message")) {
     $message = get_data_session("flash_message");

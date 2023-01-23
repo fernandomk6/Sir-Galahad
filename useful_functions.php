@@ -47,7 +47,7 @@ function get_data_session($index) {
 }
 
 function clear_data_session($index) {
-  unset($_SESSION[$index]);
+  $_SESSION[$index] = [];
 }
 
 function redirect($page, $clear_sessions = false) {
